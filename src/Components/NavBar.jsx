@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { FiPlus } from "react-icons/fi";
 
@@ -23,11 +23,24 @@ const NavBar = () => {
           </div>
         </form>
 
-        <button className=" d-flex btn align-items-center btn-primary text-uppercase fw-semibold ">
+        <button
+          onClick={(e) => {
+            const inputmp3 = document.querySelector("#inputmp3");
+            inputmp3.click();
+          }}
+          className=" d-flex btn align-items-center btn-primary text-uppercase fw-semibold "
+        >
           <FiPlus className=" fs-4  me-2" />
           songs
         </button>
       </div>
+      <input
+        className=" d-none"
+        id="inputmp3"
+        type="file"
+        multiple
+        accept="audio/*"
+      />
     </div>
   );
 };
