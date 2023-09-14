@@ -1,8 +1,31 @@
 import React, { useRef } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { FiPlus } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
+import { getMusicInfos } from "../Redux/Slices/musicSlice";
 
 const NavBar = () => {
+  const { musicInfos } = useSelector((state) => state.musicSlice);
+  const dispatch = useDispatch();
+  const addingSongsHandeller = () => {
+    const inputmp3 = document.querySelector("#inputmp3");
+
+    inputmp3.click();
+    inputmp3.addEventListener("change", (e) => {
+      const inputDatas = e.target.files;
+      console.log(inputDatas);
+      for (let i = 0; i < inputDatas.length; i++) {
+        const reader = new FileReader();
+        reader.addEventListener("load", (e) => {
+          dispatch(
+            getMusicInfos({ name: inputDatas[i].name, url: e.target.result })
+          );
+        });
+        reader.readAsDataURL(inputDatas[i]);
+      }
+    });
+  };
+  console.log(musicInfos);
   return (
     <div className=" d-flex justify-content-evenly align-items-center py-3 shadow">
       <h1 className=" fst-italic  fw-bold fs-4 text-primary ">My Music</h1>
@@ -24,10 +47,7 @@ const NavBar = () => {
         </form>
 
         <button
-          onClick={(e) => {
-            const inputmp3 = document.querySelector("#inputmp3");
-            inputmp3.click();
-          }}
+          onClick={addingSongsHandeller}
           className=" d-flex btn align-items-center btn-primary text-uppercase fw-semibold "
         >
           <FiPlus className=" fs-4  me-2" />
