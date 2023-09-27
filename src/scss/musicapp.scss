@@ -1,8 +1,33 @@
 $input-placeholder-color: gray;
+
+$primary: #79ac78;
+$info: #dcf3de;
+$success: rgb(222, 220, 220);
+$offcanvas-horizontal-width: 200px;
+
+$theme-colors: (
+  "primary": $primary,
+  // "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  // "warning": $warning,
+  // "danger": $danger,
+  // "light": $light,
+  // "dark": $dark,,,,,,,,,,,,,
+);
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
 //css form navbar
 
 .search-input {
   width: 200px;
+}
+
+.music-bar:hover {
+  background-color: rgb(187, 208, 255);
+  color: hsl(0, 1%, 19%);
+}
+.active {
+  background-color: rgb(187, 208, 255);
+  color: white;
 }

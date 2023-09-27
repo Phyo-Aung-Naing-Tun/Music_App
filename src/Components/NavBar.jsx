@@ -1,38 +1,38 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
-import { FiPlus } from "react-icons/fi";
+
+import OffcanvasMusic from "./OffcanvasMusic";
 import { useDispatch, useSelector } from "react-redux";
-import { getMusicInfos } from "../Redux/Slices/musicSlice";
+import { getFilterMusic, setToggleForSearch } from "../Redux/Slices/musicSlice";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const [inputData, setInputData] = useState("");
   const { musicInfos } = useSelector((state) => state.musicSlice);
+  const nav = useNavigate();
   const dispatch = useDispatch();
-  const addingSongsHandeller = () => {
-    const inputmp3 = document.querySelector("#inputmp3");
-
-    inputmp3.click();
-    inputmp3.addEventListener("change", (e) => {
-      const inputDatas = e.target.files;
-      console.log(inputDatas);
-      for (let i = 0; i < inputDatas.length; i++) {
-        const reader = new FileReader();
-        reader.addEventListener("load", (e) => {
-          dispatch(
-            getMusicInfos({ name: inputDatas[i].name, url: e.target.result })
-          );
-        });
-        reader.readAsDataURL(inputDatas[i]);
-      }
-    });
-  };
-  console.log(musicInfos);
   return (
-    <div className=" d-flex justify-content-evenly align-items-center py-3 shadow">
-      <h1 className=" fst-italic  fw-bold fs-4 text-primary ">My Music</h1>
-      <div className=" d-flex gap-2">
+    <div className=" d-flex justify-content-evenly sticky-top bg-white align-items-center py-1 shadow">
+      <h1 className=" d-flex justify-content-center align-items-center gap-2 fst-italic mb-0  fw-bold fs-4 text-primary ">
+        My Music
+      </h1>
+      <div className=" d-flex gap-3">
         <form>
           <div className="search-input  input-group">
             <input
+              value={inputData}
+              onChange={(e) => {
+                setInputData(e.target.value);
+                // nav("/search");
+                const filtering = musicInfos?.filter((info) =>
+                  info.name
+                    .toLowerCase()
+                    .includes(inputData?.toLocaleLowerCase())
+                );
+
+                dispatch(getFilterMusic(filtering));
+                dispatch(setToggleForSearch(false));
+              }}
               placeholder="Search songs"
               className="  form-control "
               type="text"
@@ -46,13 +46,7 @@ const NavBar = () => {
           </div>
         </form>
 
-        <button
-          onClick={addingSongsHandeller}
-          className=" d-flex btn align-items-center btn-primary text-uppercase fw-semibold "
-        >
-          <FiPlus className=" fs-4  me-2" />
-          songs
-        </button>
+        <OffcanvasMusic />
       </div>
       <input
         className=" d-none"

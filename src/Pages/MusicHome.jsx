@@ -1,17 +1,17 @@
-import React from "react";
-import MusicBars from "../Components/MusicBars";
+import React, { useRef } from "react";
 import MusicContainer from "../Components/MusicContainer";
 import { useSelector } from "react-redux";
+// import ControlArea from "../Components/ControlArea";
 
 const MusicHome = () => {
-  const { musicUrl } = useSelector((state) => state.musicSlice);
-  console.log(musicUrl);
+  const { singleMusic } = useSelector((state) => state.musicSlice);
   return (
     <div>
       <MusicContainer />
       <div>
-        <audio id="music-audio" autoPlay src={musicUrl}></audio>
+        <audio id="music-audio" src={singleMusic?.url}></audio>
       </div>
+      {/* <ControlArea /> */}
     </div>
   );
 };

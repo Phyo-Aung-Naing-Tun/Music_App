@@ -1,24 +1,30 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { getMusicUrl } from "../Redux/Slices/musicSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleMusic, setMusicToggle } from "../Redux/Slices/musicSlice";
 
-const MusicBars = ({ url, name }) => {
+const MusicBars = (props) => {
+  const { url, name, id } = props;
+  const { toggle } = useSelector((state) => state.musicSlice);
   const dispatch = useDispatch();
-  const musicHandeller = (e) => {
-    console.log(e.target.getAttribute("alt"));
-    dispatch(getMusicUrl(e.target.getAttribute("alt")));
+  const musicHandeller = () => {
+    document.querySelector("#music-audio").autoplay = true;
+    toggle && dispatch(setMusicToggle());
+    dispatch(getSingleMusic(props));
+    // e.target.classList.add("active");
   };
+
   return (
     <div
+      id={`musicList-${id}`}
       onClick={musicHandeller}
       alt={url}
-      className=" boreder-black py-3 border  min-w-full text-black"
+      className="music-bar bg-info text-primary list-group boreder-black py-3 border min-w-full "
     >
       <div
         alt={url}
-        className=" text-black fs-5 fw-semibold px-5 text-[20px] tracking-wider"
+        className=" text-truncate  fw-semibold px-5 tracking-wider"
       >
-        {name}
+        {`${id} . ${name}`}
       </div>
     </div>
   );
