@@ -80,7 +80,7 @@ const ControlArea = () => {
   return (
     <>
       <div
-        style={{ boxShadow: "#D2E9E9 0px 3px 23px 0px" }}
+        style={{ boxShadow: "#D2E9E9 0px 3px 23px 0px", zIndex: "2" }}
         className=" bg-white w-100 fixed-bottom   "
       >
         <h1

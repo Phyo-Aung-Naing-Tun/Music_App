@@ -16,6 +16,9 @@ export const musicSlice = createSlice({
     getMusicInfos: (state, { payload }) => {
       state.musicInfos.push(payload);
     },
+    deleteMusic: (state, { payload }) => {
+      state.musicInfos = payload;
+    },
     getSingleMusic: (state, { payload }) => {
       state.singleMusic = payload;
     },
@@ -33,6 +36,7 @@ export const musicSlice = createSlice({
 
 export const {
   getMusicInfos,
+  deleteMusic,
   getSingleMusic,
   setMusicToggle,
   getFilterMusic,

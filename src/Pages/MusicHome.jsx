@@ -11,7 +11,6 @@ const MusicHome = () => {
       <div>
         <audio id="music-audio" src={singleMusic?.url}></audio>
       </div>
-      {/* <ControlArea /> */}
     </div>
   );
 };

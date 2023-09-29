@@ -10,7 +10,7 @@ const MusicContainer = () => {
     <div
       id="music-container"
       className=" list-group d-flex flex-column px-1 "
-      style={{ marginBottom: "90px", gap: "1.3px" }}
+      style={{ marginBottom: "100px", gap: "1.3px" }}
     >
       {toggleForSearch
         ? musicInfos?.map((music) => (
